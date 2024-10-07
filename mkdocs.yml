@@ -1,4 +1,5 @@
-site_name: My Docs
+site_name: My site
+site_url: https://iamlaszlokelemen.hu
 theme:
   name: material
   language: hu
