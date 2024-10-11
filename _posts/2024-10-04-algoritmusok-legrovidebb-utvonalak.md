@@ -10,22 +10,7 @@ graph: true
 ---
 
 ---
-## Dijkstra algoritmus
-
-DIJKSTRA BEMUTATÁSA, LEÍRÁSA IDE JÖN MAJD
-
----
-Irányítatlan súlyozott gráf (weighted undirected graph):
-
-Ebben a típusban a gráf élei irányítatlanok, vagyis minden él kétirányú. Ha van egy él, amely összeköt két csúcsot, az mindkét irányban használható.
-A súlyok jellemzően azt mutatják meg, hogy milyen „költséggel” lehet átjutni egyik csúcsról a másikra.
-A Dijkstra algoritmus működhet ilyen gráfok esetén is, az élek kétirányúsága miatt mindkét irányban figyelembe veszi a költséget.
-Irányított súlyozott gráf (weighted directed graph):
-
-Ebben a gráfban az élek irányítottak, vagyis minden élnek van egy meghatározott iránya. Ha van egy él a -> b, akkor ez az él csak a-ból b-be használható, fordított irányban nem.
-A Dijkstra algoritmus működik ilyen gráfokon is, figyelembe véve az élek irányát és súlyát. Csak olyan útvonalakat keres, amelyek az él irányával megegyezően haladnak.
-
----
+## A Dijkstra algoritmus
 
 ### Gráf típusok
 
@@ -37,6 +22,9 @@ Mindkét gráf típus esetében a Dijkstra algoritmus hatékonyan találja meg a
 
 ## Irányítatlan gráf
 
+Ebben a típusban a gráf élei irányítatlanok, vagyis minden él kétirányú. Ha van egy él, amely összeköt két csúcsot, az mindkét irányban használható.
+A súlyok jellemzően azt mutatják meg, hogy milyen „költséggel” lehet átjutni egyik csúcsról a másikra.\
+A Dijkstra algoritmus működhet ilyen gráfok esetén is, az élek kétirányúsága miatt mindkét irányban figyelembe veszi a költséget.
 
 ![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_undirected_dijkstra.png)
 _Irányítatlan súlyozott gráf_
@@ -62,6 +50,9 @@ A $6$-os városba az alábbi városok érintésével juthatunk el:
 
 ## Irányított gráf
 
+Ebben a gráfban az élek irányítottak, vagyis minden élnek van egy meghatározott iránya. Ha van egy él a -> b, akkor ez az él csak a-ból b-be használható, fordított irányban nem.\
+A Dijkstra algoritmus működik ilyen gráfokon is, figyelembe véve az élek irányát és súlyát. Csak olyan útvonalakat keres, amelyek az él irányával megegyezően haladnak.
+
 ![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_directed_dijkstra.png)
 _Irányított súlyozott gráf_
 > Az fenti képen látható irányított gráfban szintén $7$ város található és mindegyik város között jelezve van, hogy mennyi az utazási idő (költség).
@@ -80,19 +71,6 @@ _Irányított súlyozott gráf_
 | 7   | $0 → 2 → 3 → 4 → 6$          | 6 + 8 + 10 + 2        |  26                  |
 | 8   | $0 → 2 → 3 → 4 → 5 → 6$      | 6 + 8 + 10 + 6 + 6    |  36                  |
 |     |                              |                       | $$min_{költség}=$$19 |
-
-### Solar System Exploration, 1950s – 1960s
-
-- [ ] Mercury
-- [x] Venus
-- [x] Earth (Orbit/Moon)
-- [x] Mars
-- [ ] Jupiter
-- [ ] Saturn
-- [ ] Uranus
-- [ ] Neptune
-- [ ] Comet Haley
-
 
 ## Feladat
 > Adott $n$ darab város és $m$ darab repülési útvonal a városok között, de minden útvonal az első városból indul.\
@@ -148,6 +126,130 @@ $1 \le c \le 10^9$
 0 5 2
 ```
 
-## Kiindulási kód
+## Unit Test
 
-## Unit test
+```python
+# Ha olyan megoldást használunk, amely a heapq könyvtárra épül:
+# import heapq
+import unittest
+
+def dijkstra(n, graph):
+    # Ide jön az algoritmus megoldása
+    
+# Tesztelhető segédfüggvény a bemenet feldolgozására
+def parse_input(data):
+    data = data.split()  # Input feldarabolása
+    n = int(data[0])  # városok száma
+    m = int(data[1])  # járatok száma
+
+    graph = [[] for _ in range(n + 1)]
+
+    index = 2
+    for _ in range(m):
+        a = int(data[index])
+        b = int(data[index + 1])
+        c = int(data[index + 2])
+        index += 3
+        graph[a].append((b, c))
+
+    return n, graph
+
+# Unittest osztály
+class TestDijkstra(unittest.TestCase):
+    
+    # Példa input 1 tesztelése
+    def test_case_1(self):
+        input_data = "3 4\n1 2 6\n1 3 2\n3 2 3\n1 3 4"
+        n, graph = parse_input(input_data)
+        result = dijkstra(n, graph)
+        expected_output = [0, 5, 2]  # Példa output 1
+        self.assertEqual(result, expected_output)
+
+    # Példa input 2 tesztelése
+    def test_case_2(self):
+        input_data = "3 4\n1 2 4\n1 3 2\n3 2 3\n1 3 4"
+        n, graph = parse_input(input_data)
+        result = dijkstra(n, graph)
+        expected_output = [0, 4, 2]  # Példa output 2
+        self.assertEqual(result, expected_output)
+
+# main metódus, hogy futtassa az unittest-eket
+if __name__ == "__main__":
+    unittest.main()
+```
+
+## Tesztelés (CSES)
+
+A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt megoldásunk futtatására és tesztelésére: <https://cses.fi/problemset/submit/1671/>
+
+## Lehetséges megoldások
+
+### Segédkönyvtárak nélkül
+
+```python
+def dijkstra(n, graph):
+    # Távolságok kezdetben végtelenek
+    distances = [float('inf')] * (n + 1)
+    distances[1] = 0  # A kezdő város (1-es) távolsága 0
+    visited = [False] * (n + 1)  # Jelzi, hogy meglátogattuk-e a várost
+
+    while True:
+        # Kiválasztjuk a legkisebb távolságú még nem látogatott várost
+        min_distance = float('inf')
+        u = -1
+        for i in range(1, n + 1):
+            if not visited[i] and distances[i] < min_distance:
+                min_distance = distances[i]
+                u = i
+
+        # Ha nem találtunk ilyen várost, akkor kész vagyunk
+        if u == -1:
+            break
+
+        # Megjelöljük, hogy ezt a várost most meglátogattuk
+        visited[u] = True
+
+        # Szomszédok feldolgozása
+        for v, hossz in graph[u]:
+            if distances[u] + hossz < distances[v]:
+                distances[v] = distances[u] + hossz
+
+    return distances[1:]
+```
+
+Ez a megoldás is jól működik bármilyen inputra alkalmazva, ugyanakkor nagyobb méretű inputok esetében nagyon lassú. A CSES-en futtatva a kódot ez bizonyosságot is nyer, hiszen 23 teszt esetből csak 6 esetben kapunk sikeres eredményt, 17 esetben pedig túl lépjük az időkorlátot, amely jelen esetben 1 másodperc.\
+A következő megoldással már nagyot javul a kódunk futási ideje, amelyet a `heapq` könyvtár használatával értünk el.
+
+### A heapq könyvtár használatával
+
+```python
+import heapq
+
+def dijkstra(n, graph):
+    # Távolságok kezdetben végtelenek
+    distances = [float('inf')] * (n + 1)
+    distances[1] = 0  # A kezdő város (1-es) távolsága 0
+    priority_queue = [(0, 1)]  # (távolság, város) -> 0 távolság a kezdő városra
+
+    # Addig fut, amíg van elem a prioritási sorban
+    while priority_queue:
+        current_distance, u = heapq.heappop(priority_queue)
+
+        # Ha a jelenlegi távolság nagyobb, mint a tárolt távolság, kihagyjuk
+        if current_distance > distances[u]:
+            continue
+
+        # Szomszédok feldolgozása
+        for v, hossz in graph[u]:
+            distance = current_distance + hossz
+            if distance < distances[v]:
+                distances[v] = distance
+                heapq.heappush(priority_queue, (distance, v))
+
+    return distances[1:]
+```
+
+## CSES teszt eredmények
+
+![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_1.png){: width="150" height="196" .flex}
+![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_2.png){: width="150" height="196"}
