@@ -1,6 +1,6 @@
 ---
 title: Algoritmusok - Növekvő szekvencia
-date: 2024-10-29 11:15:00
+date: 2024-10-29 08:15:00
 categories: [Informatikatanár MSc, Algoritmusok]
 tags: [novekvo szekvencia, increasing subsequence]
 image: /commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_header.jpeg
