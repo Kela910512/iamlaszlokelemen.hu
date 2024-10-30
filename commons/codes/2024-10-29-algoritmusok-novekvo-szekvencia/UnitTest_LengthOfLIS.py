@@ -8,7 +8,7 @@ def LengthOfLIS(n, graph):
 # Tesztelhető segédfüggvény a bemenet feldolgozására
 def parse_input(data):
     data = data.split()  # Input feldarabolása
-    n = int(data[0])  # Kezdeti tömbünk mérete
+    n = int(data[0])  # Tömb mérete
     arr = list(map(int, data[1:]))  # Az összes többi szám feldolgozása listába
     return arr
 

@@ -14,10 +14,10 @@ def LengthOfLIS(arr):
         else:
             lis[pos] = num  # Ellenkező esetben kicseréljük a megfelelő helyen
             
-        # A `lis` aktuális állapotának másolását elmentjük
+        # A `lis` aktuális állapotát elmentjük
         trace.append(list(lis))
     
-    # Visszaadjuk a leghosszabb részszekvencia hosszát és a lista állapotainak nyomkövetését
+    # Visszaadjuk a leghosszabb részszekvencia hosszát és a lista állapotainak összes változatát
     return len(lis), trace
 
 # Példa bemenet:
@@ -27,8 +27,8 @@ arr = [7, 3, 5, 3, 6, 2, 9, 8]
 # Számoljuk ki a hosszt és az állapotok nyomkövetését
 length, trace = LengthOfLIS(arr)
 
-# Nyomtatjuk a trace-t
+# Kiírjuk a végrehajtott lépéseket
 for step, state in enumerate(trace):
-    print(f"Step {step + 1}: {state}")
+    print(f"Lépés {step + 1}: {state}")
 
 print(f"Leghosszabb növekvő részszekvencia hossza: {length}")
