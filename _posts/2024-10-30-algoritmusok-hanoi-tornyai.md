@@ -1,7 +1,7 @@
 ---
 title: Algoritmusok - Hanoi Tornyai (rekurzívan)
 date: 2024-10-30 08:15:00
-categories: [Informatikatanár MSc, Algoritmusok]
+categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
 tags: [hanoi tornyai, tower of hanoi, hanoitower]
 image: /commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi_header.jpeg
 pin: true
