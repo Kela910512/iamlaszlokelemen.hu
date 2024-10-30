@@ -256,3 +256,19 @@ def dijkstra(n, graph):
 _heapq könyvtár használata nélkül elért futási eredmények_
 ![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_2.png){: width="150" height="196"}
 _heapq könyvtár használatával elért futási eredmények_
+
+## Letölthető fájlok
+
+> 
+- [<i class="fa-solid fa-download fa-lg"></i>][1]&nbsp;&nbsp;&nbsp;&nbsp;UnitTest
+- [<i class="fa-solid fa-download fa-lg"></i>][2]&nbsp;&nbsp;&nbsp;&nbsp;CSES input (heapq)
+- [<i class="fa-solid fa-download fa-lg"></i>][3]&nbsp;&nbsp;&nbsp;&nbsp;CSES input (without heapq)
+- [<i class="fa-solid fa-download fa-lg"></i>][4]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás + UnitTest (heapq)
+- [<i class="fa-solid fa-download fa-lg"></i>][5]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás + UnitTest (without heapq)
+{: .prompt-tip }
+
+[1]:{{ site.url }}/commons/codes/2024-10-04-algoritmusok-legrovidebb-utvonalak/UnitTest_Dijkstra.py
+[2]:{{ site.url }}/commons/codes/2024-10-04-algoritmusok-legrovidebb-utvonalak/ShortestRoutes1_CSES_input.py
+[3]:{{ site.url }}/commons/codes/2024-10-04-algoritmusok-legrovidebb-utvonalak/ShortestRoutes1_without_heapq_CSES_input.py
+[4]:{{ site.url }}/commons/codes/2024-10-04-algoritmusok-legrovidebb-utvonalak/ShortestRoutes1_with_unit_test.py
+[5]:{{ site.url }}/commons/codes/2024-10-04-algoritmusok-legrovidebb-utvonalak/ShortestRoutes1_without_heapq_with_unit_test.py
