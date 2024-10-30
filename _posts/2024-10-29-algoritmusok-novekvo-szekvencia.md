@@ -1,5 +1,5 @@
 ---
-title: Algoritmusok - Növekvő szekvencia
+title: Algoritmusok - Leghosszabb növekvő szekvencia hossza bináris kereséssel
 date: 2024-10-29 08:15:00
 categories: [Informatikatanár MSc, Algoritmusok]
 tags: [novekvo szekvencia, increasing subsequence]
@@ -10,91 +10,28 @@ graph: true
 ---
 
 ---
-## A Dijkstra algoritmus
 
-A Dijkstra-algoritmus egy hatékony módszer a legrövidebb útvonalak megtalálására egy súlyozott gráfban, ahol az élek nem negatív súlyúak. Edsger W. Dijkstra 1956-ban fejlesztette ki, és azóta széles körben alkalmazzák hálózati tervezésben, útvonaltervezésben és más optimalizálási feladatokban. Az algoritmus prioritási sort használ a csúcsok feldolgozásához, biztosítva, hogy a legrövidebb útvonalakat találja meg a kiindulási ponttól a célpontokig.
-
-### Gráf típusok
-
-A Dijkstra algoritmus működését két fajta gráf típussal tudjuk modellezni és vizsgálni:
-+ Irányítatlan súlyozott (weighted undirected)
-+ Irányított súlyozott (weighted directed)
-
-Mindkét gráf típus esetében a Dijkstra algoritmus hatékonyan találja meg a legrövidebb utat, feltéve, hogy nincsenek negatív élhosszak. Ha negatív élhosszak is előfordulnak, akkor a Dijkstra algoritmus nem biztosít helyes eredményt, és más algoritmusokra van szükség, például a Bellman-Ford algoritmusra.
-
-## Irányítatlan gráf
-
-Ebben a típusban a gráf élei irányítatlanok, vagyis minden él kétirányú. Ha van egy él, amely összeköt két csúcsot, az mindkét irányban használható.
-A súlyok jellemzően azt mutatják meg, hogy milyen „költséggel” lehet átjutni egyik csúcsról a másikra.\
-A Dijkstra algoritmus működhet ilyen gráfok esetén is, az élek kétirányúsága miatt mindkét irányban figyelembe veszi a költséget.
-
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_undirected_dijkstra.png)
-_Irányítatlan súlyozott gráf_
-> Az fenti képen látható irányítatlan gráfban $7$ város található és mindegyik város között jelezve van, hogy mennyi az utazási idő (költség).
-{: .prompt-info }
-> Célunk meghatározni a legrövidebb útvonalat a $0$ és $6$ városok között.
-{: .prompt-tip }
-
-### Lehetséges útvonalak
-A $6$-os városba az alábbi városok érintésével juthatunk el:
-
-|Útvonal$$_n$$| Útvonal              | Költség számítás      | $$\sum_{költség}$$   |
-|:---:|:----------------------------:|:---------------------:|:--------------------:|
-| 1   | $0 → 1 → 3 → 5 → 6$          | 2 + 5 + 15 + 6        |  28                  |
-| 2   | $0 → 1 → 3 → 5 → 4 → 6$      | 2 + 5 + 15 + 6 + 2    |  30                  |
-| 3   | $0 → 1 → 3 → 4 → 6$          | 2 + 5 + 10 + 2        |  19                  |
-| 4   | $0 → 1 → 3 → 4 → 5 → 6$      | 2 + 5 + 10 + 6 + 6    |  29                  |
-| 5   | $0 → 2 → 3 → 5 → 6$          | 6 + 8 + 15 + 6        |  35                  |
-| 6   | $0 → 2 → 3 → 5 → 4 → 6$      | 6 + 8 + 15 + 6 + 2    |  37                  |
-| 7   | $0 → 2 → 3 → 4 → 6$          | 6 + 8 + 10 + 2        |  26                  |
-| 8   | $0 → 2 → 3 → 4 → 5 → 6$      | 6 + 8 + 10 + 6 + 6    |  36                  |
-|     |                              |                       | $$min_{költség}=$$19 |
-
-## Irányított gráf
-
-Ebben a gráfban az élek irányítottak, vagyis minden élnek van egy meghatározott iránya. Ha van egy él a -> b, akkor ez az él csak a-ból b-be használható, fordított irányban nem.\
-A Dijkstra algoritmus működik ilyen gráfokon is, figyelembe véve az élek irányát és súlyát. Csak olyan útvonalakat keres, amelyek az él irányával megegyezően haladnak.
-
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_directed_dijkstra.png)
-_Irányított súlyozott gráf_
-> Az fenti képen látható irányított gráfban szintén $7$ város található és mindegyik város között jelezve van, hogy mennyi az utazási idő (költség).
-{: .prompt-info }
-> Célunk meghatározni a legrövidebb útvonalat a $0$ és $6$ városok között.
-{: .prompt-tip }
-
-|Útvonal$$_n$$| Útvonal              | Költség számítás      | $$\sum_{költség}$$   |
-|:---:|:----------------------------:|:---------------------:|:--------------------:|
-| 1   | $0 → 1 → 3 → 5 → 6$          | 2 + 5 + 15 + 6        |  28                  |
-| 2   | $0 → 1 → 3 → 5 → 4 → 6$      | 2 + 5 + 15 + 6 + 2    |  30                  |
-| 3   | $0 → 1 → 3 → 4 → 6$          | 2 + 5 + 10 + 2        |  19                  |
-| 4   | $0 → 1 → 3 → 4 → 5 → 6$      | 2 + 5 + 10 + 6 + 6    |  29                  |
-| 5   | $0 → 2 → 3 → 5 → 6$          | 6 + 8 + 15 + 6        |  35                  |
-| 6   | $0 → 2 → 3 → 5 → 4 → 6$      | 6 + 8 + 15 + 6 + 2    |  37                  |
-| 7   | $0 → 2 → 3 → 4 → 6$          | 6 + 8 + 10 + 2        |  26                  |
-| 8   | $0 → 2 → 3 → 4 → 5 → 6$      | 6 + 8 + 10 + 6 + 6    |  36                  |
-|     |                              |                       | $$min_{költség}=$$19 |
+A leghosszabb növekvő szekvencia megtalálására szolgáló algoritmus egy hatékony eszköz a rendezett, folyamatosan növekvő részsorozatok azonosítására egy számokból álló sorozatban. Ez az algoritmus különösen hasznos adatelemzésben, sorozatok vizsgálatában és olyan problémák megoldásában, ahol az elemek rendezett növekedésének felismerése kulcsfontosságú.
 
 ## Feladat
-> Adott $n$ darab város és $m$ darab repülési útvonal a városok között, de minden útvonal az első városból indul.\
-> Cél, hogy meghatározzuk az első városból minden másik városba vezető legrövidebb út hosszát úgy, hogy figyelembe vesszük az átszállásos lehetőségeket is.
+> Feladatunk, hogy egy egész számokat tartalmazó tömbre megmondjuk, hány elem hosszúságú a megadható leghosszabb részszekvencia mérete.
 {: .prompt-info }
 
 
+![Desktop View](/commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS.png)
+_Növekvő szekvencia algoritmus működése_
 
 ## Input
-Az input két részből áll: városok és járatok száma, illetve a repülési útvonalakat leíró sorok.
+Az input két részből áll:
+- A kezdeti tömbünk mérete (elemszám)
+- Az egész számokat tartalmazó tömb
 
-Az első bemeneti sorban két egész számot várunk: a városok és a járatok számát.
+Az első bemeneti sorban egy egész számot várunk: tömb mérete.
 \
-A városok számozottak: $1, 2, n$.
-
-
-A repülési útvonalakat leíró sorok három egész számot tartalmaznak: indulási város, cél város és a két város között út hosszát. Minden járat egyirányú.
-
+A második sor pedig maga a tömb.
 
 ## Output
-Írassuk ki, hogy az első városból a többi városba mennyi a legrövidebb út hossza. A kimenet első értéke az önmagához vezető legrövidebb út legyen, ami ebben az esetben mindig `0` lesz.
-
+Írassuk ki, hogy hány elem hosszúságú a megadható leghosszabb részszekvencia mérete.
 
 ## Korlátozások
 >
@@ -103,10 +40,8 @@ Memória limit: 512 MB
 {: .prompt-warning }
 
 >
-$ 1 \le n \le 10^5 $\
-$1 \le m \le 2 \cdot 10^5$\
-$1 \le a,b \le n$\
-$1 \le c \le 10^9$
+$ 1 \le n \le 2 \cdot 10^5 $\
+$1 \le x_{i} \le 2 \cdot 10^9 $
 {: .prompt-warning }
 
 ## Példa
@@ -114,144 +49,147 @@ $1 \le c \le 10^9$
 ### Input:
 
 ```console
-3 4
-1 2 6
-1 3 2
-3 2 3
-1 3 4
+8
+7 3 5 3 6 2 9 8
 ```
 
 
 ### Output:
 
 ```console
-0 5 2
+4
 ```
 
 ## Unit Test
 
 ```python
-# Ha olyan megoldást használunk, amely a heapq könyvtárra épül:
-# import heapq
+# Ha olyan megoldást használunk, amely a bisect könyvtárra épül:
+# import bisect
 import unittest
 
-def dijkstra(n, graph):
+def LengthOfLIS(n, graph):
     # Ide jön az algoritmus megoldása
     
 # Tesztelhető segédfüggvény a bemenet feldolgozására
 def parse_input(data):
     data = data.split()  # Input feldarabolása
-    n = int(data[0])  # városok száma
-    m = int(data[1])  # járatok száma
-
-    graph = [[] for _ in range(n + 1)]
-
-    index = 2
-    for _ in range(m):
-        a = int(data[index])
-        b = int(data[index + 1])
-        c = int(data[index + 2])
-        index += 3
-        graph[a].append((b, c))
-
-    return n, graph
+    n = int(data[0])  # Kezdeti tömbünk mérete
+    arr = list(map(int, data[1:]))  # Az összes többi szám feldolgozása listába
+    return arr
 
 # Unittest osztály
-class TestDijkstra(unittest.TestCase):
+class TestLengthOfLIS(unittest.TestCase):
     
     # Példa input 1 tesztelése
     def test_case_1(self):
-        input_data = "3 4\n1 2 6\n1 3 2\n3 2 3\n1 3 4"
-        n, graph = parse_input(input_data)
-        result = dijkstra(n, graph)
-        expected_output = [0, 5, 2]  # Példa output 1
+        input_data = "8 \n7 3 5 3 6 2 9 8"
+        arr = parse_input(input_data)
+        result = LengthOfLIS(arr)
+        expected_output = 4  # Példa output 1
         self.assertEqual(result, expected_output)
-
+        
     # Példa input 2 tesztelése
     def test_case_2(self):
-        input_data = "3 4\n1 2 4\n1 3 2\n3 2 3\n1 3 4"
-        n, graph = parse_input(input_data)
-        result = dijkstra(n, graph)
-        expected_output = [0, 4, 2]  # Példa output 2
+        input_data = "10 \n10 8 6 7 7 3 2 8 6 3"
+        arr = parse_input(input_data)
+        result = LengthOfLIS(arr)
+        expected_output = 3  # Példa output 2
         self.assertEqual(result, expected_output)
 
-# main metódus, hogy futtassa az unittest-eket
+# main metódus, hogy futtassa az unitteste-ket
 if __name__ == "__main__":
     unittest.main()
 ```
 
 ## Tesztelés (CSES)
 
-A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt megoldásunk futtatására és tesztelésére: <https://cses.fi/problemset/submit/1671/>
+A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt megoldásunk futtatására és tesztelésére: <https://cses.fi/problemset/submit/1145/>
 
 ## Lehetséges megoldások
 
-### Segédkönyvtárak nélkül
+### Segédkönyvtárak (bisect) nélkül
 
 ```python
-def dijkstra(n, graph):
-    # Távolságok kezdetben végtelenek
-    distances = [float('inf')] * (n + 1)
-    distances[1] = 0  # A kezdő város (1-es) távolsága 0
-    visited = [False] * (n + 1)  # Jelzi, hogy meglátogattuk-e a várost
+def LengthOfLIS(nums):
+    # Bináris keresési megközelítés
+    n = len(nums)
+    result = []
 
-    while True:
-        # Kiválasztjuk a legkisebb távolságú még nem látogatott várost
-        min_distance = float('inf')
-        u = -1
-        for i in range(1, n + 1):
-            if not visited[i] and distances[i] < min_distance:
-                min_distance = distances[i]
-                u = i
+    # Inicializáljuk a válaszlistát a result első elemével.
+    result.append(nums[0])
 
-        # Ha nem találtunk ilyen várost, akkor kész vagyunk
-        if u == -1:
-            break
+    for i in range(1, n):
+        if nums[i] > result[-1]:
+            # Ha az aktuális szám nagyobb, mint a result utolsó eleme, az azt jelenti, hogy találtunk egy hosszabb növekvő részszekvenciát.
+            # Ezért az aktuális számot hozzácsatoljuk a válaszlistához.
+            result.append(nums[i])
+        else:
+            # Ha az aktuális szám nem nagyobb, mint a válaszlista utolsó eleme, akkor bináris keresést végzünk,
+            # hogy megtaláljuk a válaszlista legkisebb elemét, amely nagyobb vagy egyenlő az aktuális számnál.
+            low = 0
+            high = len(result) - 1
+            while low < high:
+                mid = low + (high - low) // 2
+                if result[mid] < nums[i]:
+                    low = mid + 1
+                else:
+                    high = mid
+            # A megtalált pozícióban lévő elemet frissítjük az aktuális számmal.
+            # Ezzel fenntartjuk a válaszlista rendezett sorrendjét.
+            result[low] = nums[i]
 
-        # Megjelöljük, hogy ezt a várost most meglátogattuk
-        visited[u] = True
-
-        # Szomszédok feldolgozása
-        for v, hossz in graph[u]:
-            if distances[u] + hossz < distances[v]:
-                distances[v] = distances[u] + hossz
-
-    return distances[1:]
+    # A válaszlista hossza a leghosszabb növekvő részsorozat hosszát jelenti.
+    return len(result)
 ```
 
-Ez a megoldás is jól működik bármilyen inputra alkalmazva, ugyanakkor nagyobb méretű inputok esetében nagyon lassú. A CSES-en futtatva a kódot ez bizonyosságot is nyer, hiszen 23 teszt esetből csak 6 esetben kapunk sikeres eredményt, 17 esetben pedig túl lépjük az időkorlátot, amely jelen esetben 1 másodperc.\
-A következő megoldással már nagyot javul a kódunk futási ideje, amelyet a `heapq` könyvtár használatával értünk el.
+Ez a megoldás is jól működik bármilyen inputra alkalmazva, ugyanakkor nagyobb méretű inputok esetében már lassulást vélhetünk felfedezni a futási időkben. A CSES-en futtatva a kódot láthatjuk, hogy minden tesztesetre sikeresen lefut, de néhány nagyobb input esetén a futási idő több lesz, mint a `bisect` könyvtár implementálásával megírt megoldás.\
+Az alábbi megoldással már javul a kódunk futási ideje, amelyet a `bisect` könyvtár használatával értünk el.
 
-### A heapq könyvtár használatával
+### A bisect könyvtár használatával
 
 ```python
-import heapq
+import bisect
 
-def dijkstra(n, graph):
-    # Távolságok kezdetben végtelenek
-    distances = [float('inf')] * (n + 1)
-    distances[1] = 0  # A kezdő város (1-es) távolsága 0
-    priority_queue = [(0, 1)]  # (távolság, város) -> 0 távolság a kezdő városra
-
-    # Addig fut, amíg van elem a prioritási sorban
-    while priority_queue:
-        current_distance, u = heapq.heappop(priority_queue)
-
-        # Ha a jelenlegi távolság nagyobb, mint a tárolt távolság, kihagyjuk
-        if current_distance > distances[u]:
-            continue
-
-        # Szomszédok feldolgozása
-        for v, hossz in graph[u]:
-            distance = current_distance + hossz
-            if distance < distances[v]:
-                distances[v] = distance
-                heapq.heappush(priority_queue, (distance, v))
-
-    return distances[1:]
+def LengthOfLIS(arr):
+    # Ez a lista tárolja a különböző hosszúságú növekvő részszekvenciák legkisebb záró elemeit
+    lis = []
+    
+    for num in arr:
+        # Megkeressük azt a helyet, ahova a 'num' illeszkedik a lis listában
+        pos = bisect.bisect_left(lis, num)
+        
+        # Ha a pozíció a lista végén van, hozzáadjuk a számot, mert ez növeli a részszekvenciát
+        if pos == len(lis):
+            lis.append(num)
+        else:
+            # Ellenkező esetben kicseréljük a meglévő elemet erre az új számra
+            lis[pos] = num
+    
+    # A lis hossza lesz a leghosszabb növekvő részszekvencia hossza
+    return len(lis)
 ```
 
 ## CSES teszt eredmények
 
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_1.png){: width="150" height="196" .flex}
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_2.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/CSES_result_1.png){: width="150" height="196"}
+_bisect könyvtár használata nélkül elért futási eredmények_
+![Desktop View](/commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/CSES_result_2.png){: width="150" height="196"}
+_bisect könyvtár használatával elért futási eredmények_
+
+## Letölthető fájlok
+
+> 
+- [<i class="fa-solid fa-download fa-lg"></i>][1]&nbsp;&nbsp;&nbsp;&nbsp;UnitTest
+- [<i class="fa-solid fa-download fa-lg"></i>][2]&nbsp;&nbsp;&nbsp;&nbsp;CSES input (bisect)
+- [<i class="fa-solid fa-download fa-lg"></i>][3]&nbsp;&nbsp;&nbsp;&nbsp;CSES input (without bisect)
+- [<i class="fa-solid fa-download fa-lg"></i>][4]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás lépések kiíratásával (bisect)
+- [<i class="fa-solid fa-download fa-lg"></i>][5]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás + UnitTest (bisect)
+- [<i class="fa-solid fa-download fa-lg"></i>][6]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás + UnitTest (without bisect)
+{: .prompt-tip }
+
+[1]:{{ site.url }}/commons/codes/2024-10-29-algoritmusok-novekvo-szekvencia/UnitTest_LengthOfLIS.py
+[2]:{{ site.url }}/commons/codes/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_CSES_input.py
+[3]:{{ site.url }}/commons/codes/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_CSES_input_without_bisect.py
+[4]:{{ site.url }}/commons/codes/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_with_steps.py
+[5]:{{ site.url }}/commons/codes/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_with_unit_test.py
+[6]:{{ site.url }}/commons/codes/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_with_unit_test_without_bisect.py

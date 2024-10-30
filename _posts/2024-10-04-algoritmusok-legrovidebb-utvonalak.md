@@ -10,7 +10,6 @@ graph: true
 ---
 
 ---
-## A Dijkstra algoritmus
 
 A Dijkstra-algoritmus egy hatékony módszer a legrövidebb útvonalak megtalálására egy súlyozott gráfban, ahol az élek nem negatív súlyúak. Edsger W. Dijkstra 1956-ban fejlesztette ki, és azóta széles körben alkalmazzák hálózati tervezésben, útvonaltervezésben és más optimalizálási feladatokban. Az algoritmus prioritási sort használ a csúcsok feldolgozásához, biztosítva, hogy a legrövidebb útvonalakat találja meg a kiindulási ponttól a célpontokig.
 
@@ -186,7 +185,7 @@ A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt 
 
 ## Lehetséges megoldások
 
-### Segédkönyvtárak nélkül
+### Segédkönyvtárak (heapq) nélkül
 
 ```python
 def dijkstra(n, graph):
@@ -253,5 +252,7 @@ def dijkstra(n, graph):
 
 ## CSES teszt eredmények
 
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_1.png){: width="150" height="196" .flex}
+![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_1.png){: width="150" height="196"}
+_heapq könyvtár használata nélkül elért futási eredmények_
 ![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_2.png){: width="150" height="196"}
+_heapq könyvtár használatával elért futási eredmények_
