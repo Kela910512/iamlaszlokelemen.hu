@@ -1,5 +1,5 @@
 ---
-title: Algoritmusok - Hanoi Tornyai (rekurzívan)
+title: Algoritmusok - Hanoi Tornyai
 date: 2024-10-30 08:15:00
 categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
 tags: [hanoi tornyai, tower of hanoi, hanoitower]
@@ -11,31 +11,29 @@ graph: true
 
 ---
 
-> TARTALOM FELTÖLTÉS ALATT!
-{: .prompt-danger }
+A Hanoi tornyai probléma egy híres matematikai és algoritmikai feladat, amelyet Édouard Lucas francia matematikus mutatott be 1883-ban.
 
-<!--
-A leghosszabb növekvő szekvencia megtalálására szolgáló algoritmus egy hatékony eszköz a rendezett, folyamatosan növekvő részsorozatok azonosítására egy számokból álló sorozatban. Ez az algoritmus különösen hasznos adatelemzésben, sorozatok vizsgálatában és olyan problémák megoldásában, ahol az elemek rendezett növekedésének felismerése kulcsfontosságú.
+## A Hanoi tornyai probléma részletes ismertetése
+ A feladat kiinduló helyzetében adott egy torony, amely különböző méretű korongokból áll, és ezeket egy oszlopra helyeztük úgy, hogy a nagyobb korongok mindig a kisebb korongok alatt vannak. A cél, hogy a tornyot egy másik oszlopra helyezzük át úgy, hogy betartjuk a következő szabályokat:
+
+- Egyszerre csak egy korongot mozgathatunk.
+- Egy korongot sosem helyezhetünk egy kisebb korongra.
+- A tornyot egy harmadik segédoszlop segítségével kell áthelyeznünk.
 
 ## Feladat
-> Feladatunk, hogy egy egész számokat tartalmazó tömbre megmondjuk, hány elem hosszúságú a megadható leghosszabb részszekvencia mérete.
+> Feladatunk megmondani, hogy $n$ darabszámú korong esetén mennyi a minimális korong áthelyezési lépés, illetve, hogy pontosan mi is az adott lépés. (Honnan hová helyezzük az adott korongot.)
 {: .prompt-info }
 
+A Hanoi tornyai probléma elsőre egyszerűnek tűnhet, de a korongok számának növekedésével a megoldás komplexitása exponenciálisan növekszik. Ha $n$ a korongok száma, akkor az optimális megoldáshoz szükséges lépések száma: $2^n - 1$.
 
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/LengthOfLIS.png)
-_Növekvő szekvencia algoritmus működése_
+![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.png)
+_A Hanoi Tornyai feladat rekurzív algoritmusának működése_
 
 ## Input
-Az input két részből áll:
-- A kezdeti tömbünk mérete (elemszám)
-- Az egész számokat tartalmazó tömb
-
-Az első bemeneti sorban egy egész számot várunk: tömb mérete.
-\
-A második sor pedig maga a tömb.
+Az input egyetlen eleme a korongok száma.
 
 ## Output
-Írassuk ki, hogy hány elem hosszúságú a megadható leghosszabb részszekvencia mérete.
+Írassuk ki, hogy hány lépésből oldható meg a feladat és pontosan mik a lépések.
 
 ## Korlátozások
 >
@@ -44,8 +42,7 @@ Memória limit: 512 MB
 {: .prompt-warning }
 
 >
-$ 1 \le n \le 2 \cdot 10^5 $\
-$1 \le x_{i} \le 2 \cdot 10^9 $
+$1 \le n \le 16$
 {: .prompt-warning }
 
 ## Példa
@@ -53,125 +50,52 @@ $1 \le x_{i} \le 2 \cdot 10^9 $
 ### Input:
 
 ```console
-8
-7 3 5 3 6 2 9 8
+2
 ```
 
 
 ### Output:
 
 ```console
-4
+3
+1 2
+1 3
+2 3
+```
+
+## Rekurzív megoldás
+
+```python
+# elso: 1. állvány
+# masodik: 2. állvány (segéd)
+# harmadik: 3. állvány
+
+def hanoi(n, elso, harmadik, masodik):
+    if n == 1:
+        print(f"{elso} {harmadik}")
+        return
+    hanoi(n - 1, elso, masodik, harmadik) # rekurzív hívás
+    print(f"{elso} {harmadik}") # Lépések kiíratása
+    hanoi(n - 1, masodik, harmadik, elso) # rekurzív hívás
+
+# Példa futtatás
+while True:
+    n = int(input("Add meg a korongok számát: "))
+    if n <= 16 and n > 0:
+        break
+    print("A korongok száma min. 1 és max. 16 lehet. Próbáld újra.")
+
+print(2**n - 1)  # Minimális lépések száma
+hanoi(n, 1, 3, 2)
 ```
 
 ## Unit Test
 
-```python
-# Ha olyan megoldást használunk, amely a bisect könyvtárra épül:
-# import bisect
-import unittest
-
-def LengthOfLIS(n, graph):
-    # Ide jön az algoritmus megoldása
-    
-# Tesztelhető segédfüggvény a bemenet feldolgozására
-def parse_input(data):
-    data = data.split()  # Input feldarabolása
-    n = int(data[0])  # Kezdeti tömbünk mérete
-    arr = list(map(int, data[1:]))  # Az összes többi szám feldolgozása listába
-    return arr
-
-# Unittest osztály
-class TestLengthOfLIS(unittest.TestCase):
-    
-    # Példa input 1 tesztelése
-    def test_case_1(self):
-        input_data = "8 \n7 3 5 3 6 2 9 8"
-        arr = parse_input(input_data)
-        result = LengthOfLIS(arr)
-        expected_output = 4  # Példa output 1
-        self.assertEqual(result, expected_output)
-        
-    # Példa input 2 tesztelése
-    def test_case_2(self):
-        input_data = "10 \n10 8 6 7 7 3 2 8 6 3"
-        arr = parse_input(input_data)
-        result = LengthOfLIS(arr)
-        expected_output = 3  # Példa output 2
-        self.assertEqual(result, expected_output)
-
-# main metódus, hogy futtassa az unitteste-ket
-if __name__ == "__main__":
-    unittest.main()
-```
+Mivel a lépések számának meghatározásához adott egy képlet, így tesztelni a pontos lépések meghatározását szükséges csak. Ugyanakkor erre `unittest`-et írni csak úgy érdemes, ha például a várt eredmény egy szöveges file-ba kerül elhelyezésre és a futási eredmény ezzel kerül összehasonlításra. A CSES oldalán lévő egyszerű futtatási és ellenőrzési lehetőség miatt célszerűbb csak ott tesztelni a megírt python kódot.
 
 ## Tesztelés (CSES)
 
-A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt megoldásunk futtatására és tesztelésére: <https://cses.fi/problemset/submit/1145/>
-
-## Lehetséges megoldások
-
-### Segédkönyvtárak (bisect) nélkül
-
-```python
-def LengthOfLIS(nums):
-    # Bináris keresési megközelítés
-    n = len(nums)
-    result = []
-
-    # Inicializáljuk a válaszlistát a result első elemével.
-    result.append(nums[0])
-
-    for i in range(1, n):
-        if nums[i] > result[-1]:
-            # Ha az aktuális szám nagyobb, mint a result utolsó eleme, az azt jelenti, hogy találtunk egy hosszabb növekvő részszekvenciát.
-            # Ezért az aktuális számot hozzácsatoljuk a válaszlistához.
-            result.append(nums[i])
-        else:
-            # Ha az aktuális szám nem nagyobb, mint a válaszlista utolsó eleme, akkor bináris keresést végzünk,
-            # hogy megtaláljuk a válaszlista legkisebb elemét, amely nagyobb vagy egyenlő az aktuális számnál.
-            low = 0
-            high = len(result) - 1
-            while low < high:
-                mid = low + (high - low) // 2
-                if result[mid] < nums[i]:
-                    low = mid + 1
-                else:
-                    high = mid
-            # A megtalált pozícióban lévő elemet frissítjük az aktuális számmal.
-            # Ezzel fenntartjuk a válaszlista rendezett sorrendjét.
-            result[low] = nums[i]
-
-    # A válaszlista hossza a leghosszabb növekvő részsorozat hosszát jelenti.
-    return len(result)
-```
-
-Ez a megoldás is jól működik bármilyen inputra alkalmazva, ugyanakkor nagyobb méretű inputok esetében már lassulást vélhetünk felfedezni a futási időkben. A CSES-en futtatva a kódot láthatjuk, hogy minden tesztesetre sikeresen lefut, de néhány nagyobb input esetén a futási idő több lesz, mint a `bisect` könyvtár implementálásával megírt megoldás.\
-Az alábbi megoldással már javul a kódunk futási ideje, amelyet a `bisect` könyvtár használatával értünk el.
-
-### A bisect könyvtár használatával
-
-```python
-import bisect
-
-def LengthOfLIS(arr):
-    # Ez a lista tárolja a különböző hosszúságú növekvő részszekvenciák legkisebb záró elemeit
-    lis = []
-    
-    for num in arr:
-        # Megkeressük azt a helyet, ahova a 'num' illeszkedik a lis listában
-        pos = bisect.bisect_left(lis, num)
-        
-        # Ha a pozíció a lista végén van, hozzáadjuk a számot, mert ez növeli a részszekvenciát
-        if pos == len(lis):
-            lis.append(num)
-        else:
-            # Ellenkező esetben kicseréljük a meglévő elemet erre az új számra
-            lis[pos] = num
-    
-    # A lis hossza lesz a leghosszabb növekvő részszekvencia hossza
-    return len(lis)
-```
+A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt megoldásunk futtatására és tesztelésére: <https://cses.fi/problemset/submit/2165/>
 
 ## CSES teszt eredmények
 
@@ -181,19 +105,9 @@ _futási eredmények_
 ## Letölthető fájlok
 
 > 
-- [<i class="fa-solid fa-download fa-lg"></i>][1]&nbsp;&nbsp;&nbsp;&nbsp;UnitTest
-- [<i class="fa-solid fa-download fa-lg"></i>][2]&nbsp;&nbsp;&nbsp;&nbsp;CSES input (bisect)
-- [<i class="fa-solid fa-download fa-lg"></i>][3]&nbsp;&nbsp;&nbsp;&nbsp;CSES input (without bisect)
-- [<i class="fa-solid fa-download fa-lg"></i>][4]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás lépések kiíratásával (bisect)
-- [<i class="fa-solid fa-download fa-lg"></i>][5]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás + UnitTest (bisect)
-- [<i class="fa-solid fa-download fa-lg"></i>][6]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás + UnitTest (without bisect)
+- [<i class="fa-solid fa-download fa-lg"></i>][1]&nbsp;&nbsp;&nbsp;&nbsp;Hanoi Tornyai rekurzívan
+- [<i class="fa-solid fa-download fa-lg"></i>][2]&nbsp;&nbsp;&nbsp;&nbsp;CSES input
 {: .prompt-tip }
 
-[1]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/UnitTest_LengthOfLIS.py
-[2]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/LengthOfLIS_CSES_input.py
-[3]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/LengthOfLIS_CSES_input_without_bisect.py
-[4]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/LengthOfLIS_with_steps.py
-[5]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/LengthOfLIS_with_unit_test.py
-[6]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/LengthOfLIS_with_unit_test_without_bisect.py
-
--->
+[1]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi_recursive.py
+[2]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi_recursive_CSES_input.py
