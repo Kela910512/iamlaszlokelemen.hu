@@ -24,8 +24,8 @@ A Hanoi tornyai probléma egy híres matematikai és algoritmikai feladat, amely
 > Feladatunk megmondani, hogy $n$ darabszámú korong esetén mennyi a minimális korong áthelyezési lépés, illetve, hogy pontosan mi is az adott lépés. (Honnan hová helyezzük az adott korongot.)
 {: .prompt-info }
 
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.gif){: width="50%" height="50%"}
-_futási eredmények_
+![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.gif)
+_Hanoi Tornyai szemléltető_
 
 A Hanoi tornyai probléma elsőre egyszerűnek tűnhet, de a korongok számának növekedésével a megoldás komplexitása exponenciálisan növekszik. Ha $n$ a korongok száma, akkor az optimális megoldáshoz szükséges lépések száma: $2^n - 1$.
 
