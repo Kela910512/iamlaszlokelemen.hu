@@ -3,7 +3,7 @@ title: Algoritmusok - Csúszóablakos keresés
 date: 2024-11-25 08:15:00
 categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
 tags: [kereso algoritmus, csuszoablakos algoritmus]
-image: /commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses.jpeg
+image: /commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses_header.jpeg
 pin: false
 math: true
 graph: true
@@ -11,32 +11,21 @@ graph: true
 
 ---
 
-A Hanoi tornyai probléma egy híres matematikai és algoritmikai feladat, amelyet Édouard Lucas francia matematikus mutatott be 1883-ban.
-
-## A Hanoi tornyai probléma részletes ismertetése
- A feladat kiinduló helyzetében adott egy torony, amely különböző méretű korongokból áll, és ezeket egy oszlopra helyeztük úgy, hogy a nagyobb korongok mindig a kisebb korongok alatt vannak. A cél, hogy a tornyot egy másik oszlopra helyezzük át úgy, hogy betartjuk a következő szabályokat:
-
-- Egyszerre csak egy korongot mozgathatunk.
-- Egy korongot sosem helyezhetünk egy kisebb korongra.
-- A tornyot egy harmadik segédoszlop segítségével kell áthelyeznünk.
+A csúszóablakos keresés egy hatékony algoritmus, amely különösen alkalmas olyan problémák megoldására, ahol egy adott részhalmaz tulajdonságait kell nyomon követni egy folyamatosan változó intervallumon belül.
 
 ## Feladat
-> Feladatunk megmondani, hogy $n$ darabszámú korong esetén mennyi a minimális korong áthelyezési lépés, illetve, hogy pontosan mi is az adott lépés. (Honnan hová helyezzük az adott korongot.)
+> Egy zenei lejátszási listán vannak dalok, amelyeket egymás után játszanak le. A cél, hogy megtaláljuk a leghosszabb, ismétlődés nélküli részlistát a dalok sorrendjében.
 {: .prompt-info }
 
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.gif)
-_Hanoi Tornyai szemléltető_
-
-A Hanoi tornyai probléma elsőre egyszerűnek tűnhet, de a korongok számának növekedésével a megoldás komplexitása exponenciálisan növekszik. Ha $n$ a korongok száma, akkor az optimális megoldáshoz szükséges lépések száma: $2^n - 1$.
-
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.png)
-_A Hanoi Tornyai feladat rekurzív algoritmusának működése_
+![Desktop View](/commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses.png)
+_A csúszóablakos keresési algoritmus működése_
 
 ## Input
-Az input egyetlen eleme a korongok száma.
+Az első sor tartalmaz egy $n$ egész számot, amely a lejátszási lista dalainak számát adja meg.
+A második sor $n$ darab egész számot tartalmaz, amelyek az egyes dalok egyedi azonosítói (1-től induló természetes számok).
 
 ## Output
-Írassuk ki, hogy hány lépésből oldható meg a feladat és pontosan mik a lépések.
+Írassuk ki a leghosszabb részlista hosszát, amely nem tartalmaz ismétlődő dalokat.
 
 ## Korlátozások
 >
@@ -45,72 +34,124 @@ Memória limit: 512 MB
 {: .prompt-warning }
 
 >
-$1 \le n \le 16$
+$1 \le n \le 2 \cdot 10^5$\
+$1 \le k_{i} \le 10^9$
 {: .prompt-warning }
 
 ## Példa
 
-### Input:
+### Input
 
 ```console
-2
+8
+1 2 1 3 2 7 4 2
 ```
 
 
-### Output:
+### Output
 
 ```console
-3
-1 2
-1 3
-2 3
+5
 ```
 
-## Rekurzív megoldás
+## Lehetséges megközelítés
+Használjunk egy csúszóablakos algoritmust, amely két mutatót használ:
+
+- bal: az aktuális részlista kezdete,
+- jobb: az aktuális részlista vége (amelyet iterálunk).
+
+Egy halmazt használunk a részlista dalainak nyilvántartására, és ha duplikációt találunk, a bal mutatót eltoljuk, amíg az ismétlődő elem ki nem kerül a részlistából.
+
+## Miért csúszóablakos algoritmus?
+Egy olyan intervallumot (részlistát) keresünk, amelynek nincs ismétlődő eleme.
+Az intervallum mérete folyamatosan változik, ahogy újabb elemeket adunk hozzá, és eltávolítjuk a nem kívánt elemeket.
+
+A csúszóablakos algoritmus a lista elemeit legfeljebb kétszer dolgozza fel (egyszer hozzáadja az ablakhoz, egyszer eltávolítja belőle).
+Ezért az algoritmus időbonyolultsága $O(n)$, ami hatékony a probléma megoldását tekintve.
+
+## Lehetséges megoldás
 
 ```python
-# elso: 1. állvány
-# masodik: 2. állvány (segéd)
-# harmadik: 3. állvány
+def longest_playlist(n, songs):
+    seen = set()  # Halmaz az aktuális dalok követésére
+    left = 0  # Csúszóablak bal oldala
+    max_length = 0  # Leghosszabb részlista hossza
+    
+    for right in range(n):  # Csúszóablak jobb oldala
+        while songs[right] in seen:
+            seen.remove(songs[left])
+            left += 1  # Mozgassuk a bal oldalt
+        seen.add(songs[right])
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length
 
-def hanoi(n, elso, harmadik, masodik):
-    if n == 1:
-        print(f"{elso} {harmadik}")
-        return
-    hanoi(n - 1, elso, masodik, harmadik) # rekurzív hívás
-    print(f"{elso} {harmadik}") # Lépések kiíratása
-    hanoi(n - 1, masodik, harmadik, elso) # rekurzív hívás
+# Input beolvasása
+n = int(input())
+songs = list(map(int, input().split()))
 
-# Példa futtatás
-while True:
-    n = int(input("Add meg a korongok számát: "))
-    if n <= 16 and n > 0:
-        break
-    print("A korongok száma min. 1 és max. 16 lehet. Próbáld újra.")
-
-print(2**n - 1)  # Minimális lépések száma
-hanoi(n, 1, 3, 2)
+# Eredmény kiíratása
+print(longest_playlist(n, songs))
 ```
 
 ## Unit Test
 
-Mivel a lépések számának meghatározásához adott egy képlet, így tesztelni a pontos lépések meghatározását szükséges csak. Ugyanakkor erre `unittest`-et írni csak úgy érdemes, ha például a várt eredmény egy szöveges file-ba kerül elhelyezésre és a futási eredmény ezzel kerül összehasonlításra. A CSES oldalán lévő egyszerű futtatási és ellenőrzési lehetőség miatt célszerűbb csak ott tesztelni a megírt python kódot.
+```python
+import unittest
+
+def LongestPlaylist(n, songs):
+    # Ide jön az algoritmus megoldása
+
+def parse_input(data):
+    data = data.split("\n")  # Input feldarabolása
+    n = int(data[0])  # Dalok száma
+    songs = list(map(int, data[1].split()))  # Dalok egyedi azonosítói
+
+    return n, songs
+    
+# Unittest osztály
+class TestLongestPlaylist(unittest.TestCase):
+    
+    # Példa input 1 tesztelése
+    def test_case_1(self):
+        input_data = "10\n2 2 1 1 2 1 2 1 2 1"
+        n, songs = parse_input(input_data)
+        result = LongestPlaylist(n, songs)
+        expected_output = 2  # Példa output 1
+        self.assertEqual(result, expected_output)
+
+    # Példa input 2 tesztelése
+    def test_case_2(self):
+        input_data = "10\n45 9 37 81 69 99 49 71 90 30"
+        n, songs = parse_input(input_data)
+        result = LongestPlaylist(n, songs)
+        expected_output = 10  # Példa output 2
+        self.assertEqual(result, expected_output)
+
+# main metódus, hogy futtassa az unitteste-ket
+if __name__ == "__main__":
+    unittest.main()
+```
 
 ## Tesztelés (CSES)
 
-A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt megoldásunk futtatására és tesztelésére: <https://cses.fi/problemset/submit/2165/>
+A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt megoldásunk futtatására és tesztelésére: <https://cses.fi/problemset/submit/1141/>
 
 ## CSES teszt eredmények
 
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/CSES_result_1.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CSES_result_1.png){: width="150" height="196"}
 _futási eredmények_
 
 ## Letölthető fájlok
 
 > 
-- [<i class="fa-solid fa-download fa-lg"></i>][1]&nbsp;&nbsp;&nbsp;&nbsp;Hanoi Tornyai rekurzívan
+- [<i class="fa-solid fa-download fa-lg"></i>][1]&nbsp;&nbsp;&nbsp;&nbsp;UnitTest
 - [<i class="fa-solid fa-download fa-lg"></i>][2]&nbsp;&nbsp;&nbsp;&nbsp;CSES input
+- [<i class="fa-solid fa-download fa-lg"></i>][3]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás + UnitTest
+- [<i class="fa-solid fa-download fa-lg"></i>][4]&nbsp;&nbsp;&nbsp;&nbsp;Megoldás leghosszabb sorozat kiíratásával
 {: .prompt-tip }
 
-[1]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi_recursive.py
-[2]:{{ site.url }}/commons/codes/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi_recursive_CSES_input.py
+[1]:{{ site.url }}/commons/codes/2024-11-25-algoritmusok-csuszoablakos-kereses/UnitTest_Playlist.py
+[2]:{{ site.url }}/commons/codes/2024-11-25-algoritmusok-csuszoablakos-kereses/Playlist_CSES_input.py
+[3]:{{ site.url }}/commons/codes/2024-11-25-algoritmusok-csuszoablakos-kereses/Playlist_with_unit_test.py
+[4]:{{ site.url }}/commons/codes/2024-11-25-algoritmusok-csuszoablakos-kereses/Playlist_with_sequence.py

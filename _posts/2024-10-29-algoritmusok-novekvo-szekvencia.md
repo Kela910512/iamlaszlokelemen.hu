@@ -46,7 +46,7 @@ $1 \le x_{i} \le 2 \cdot 10^9 $
 
 ## Példa
 
-### Input:
+### Input
 
 ```console
 8
@@ -54,7 +54,7 @@ $1 \le x_{i} \le 2 \cdot 10^9 $
 ```
 
 
-### Output:
+### Output
 
 ```console
 4

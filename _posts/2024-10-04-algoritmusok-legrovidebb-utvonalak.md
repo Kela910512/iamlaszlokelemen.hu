@@ -110,7 +110,7 @@ $1 \le c \le 10^9$
 
 ## Példa
 
-### Input:
+### Input
 
 ```console
 3 4
@@ -121,7 +121,7 @@ $1 \le c \le 10^9$
 ```
 
 
-### Output:
+### Output
 
 ```console
 0 5 2

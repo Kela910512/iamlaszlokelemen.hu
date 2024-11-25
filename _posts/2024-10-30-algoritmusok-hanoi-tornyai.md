@@ -50,14 +50,14 @@ $1 \le n \le 16$
 
 ## Példa
 
-### Input:
+### Input
 
 ```console
 2
 ```
 
 
-### Output:
+### Output
 
 ```console
 3
