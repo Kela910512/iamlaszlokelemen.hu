@@ -4,7 +4,7 @@ date: 2024-11-25 08:15:00
 categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
 tags: [kereso algoritmus, csuszoablakos algoritmus]
 image: /commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses.jpeg
-pin: true
+pin: false
 math: true
 graph: true
 ---

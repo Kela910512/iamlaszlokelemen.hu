@@ -4,7 +4,7 @@ date: 2024-10-04 21:25:00
 categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
 tags: [legrovidebb utvonalak, shortest tracks, dijkstra]
 image: /commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/Dijkstra_Shortest_Routes_header.jpeg
-pin: true
+pin: false
 math: true
 graph: true
 ---
