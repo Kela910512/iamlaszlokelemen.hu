@@ -1,9 +1,9 @@
 ---
 title: Algoritmusok - Csúszóablakos keresés
 date: 2024-11-25 08:15:00
-categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
+categories: [Algoritmusok, Csúszóablakos keresés]
 tags: [kereso algoritmus, csuszoablakos algoritmus]
-image: /commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses_header.jpeg
+image: /commons/images/posts/2024/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses_header.jpeg
 pin: false
 math: true
 graph: true

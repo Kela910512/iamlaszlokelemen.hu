@@ -1,9 +1,9 @@
 ---
 title: Algoritmusok - Leghosszabb növekvő szekvencia hossza bináris kereséssel
 date: 2024-10-29 08:15:00
-categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
+categories: [Algoritmusok, Leghosszabb növekvő szekvencia]
 tags: [novekvo szekvencia, increasing subsequence]
-image: /commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_header.jpeg
+image: /commons/images/posts/2024/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS_header.jpeg
 pin: false
 math: true
 graph: true

@@ -1,9 +1,9 @@
 ---
 title: Algoritmusok - Legrövidebb útvonalak
 date: 2024-10-04 21:25:00
-categories: [Informatikatanár MSc, Algoritmusok, Problémamegoldás]
+categories: [Algoritmusok, Dijkstra-algoritmus]
 tags: [legrovidebb utvonalak, shortest tracks, dijkstra]
-image: /commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/Dijkstra_Shortest_Routes_header.jpeg
+image: /commons/images/posts/2024/2024-10-04-algoritmusok-legrovidebb-utvonalak/Dijkstra_Shortest_Routes_header.jpeg
 pin: false
 math: true
 graph: true
