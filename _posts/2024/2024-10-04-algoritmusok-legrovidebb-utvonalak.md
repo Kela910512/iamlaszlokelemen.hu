@@ -27,7 +27,7 @@ Ebben a típusban a gráf élei irányítatlanok, vagyis minden él kétirányú
 A súlyok jellemzően azt mutatják meg, hogy milyen „költséggel” lehet átjutni egyik csúcsról a másikra.\
 A Dijkstra algoritmus működhet ilyen gráfok esetén is, az élek kétirányúsága miatt mindkét irányban figyelembe veszi a költséget.
 
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_undirected_dijkstra.png)
+![Desktop View](/commons/images/posts/2024/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_undirected_dijkstra.png)
 _Irányítatlan súlyozott gráf_
 > Az fenti képen látható irányítatlan gráfban $7$ város található és mindegyik város között jelezve van, hogy mennyi az utazási idő (költség).
 {: .prompt-info }
@@ -54,7 +54,7 @@ A $6$-os városba az alábbi városok érintésével juthatunk el:
 Ebben a gráfban az élek irányítottak, vagyis minden élnek van egy meghatározott iránya. Ha van egy él a -> b, akkor ez az él csak a-ból b-be használható, fordított irányban nem.\
 A Dijkstra algoritmus működik ilyen gráfokon is, figyelembe véve az élek irányát és súlyát. Csak olyan útvonalakat keres, amelyek az él irányával megegyezően haladnak.
 
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_directed_dijkstra.png)
+![Desktop View](/commons/images/posts/2024/2024-10-04-algoritmusok-legrovidebb-utvonalak/weighted_directed_dijkstra.png)
 _Irányított súlyozott gráf_
 > Az fenti képen látható irányított gráfban szintén $7$ város található és mindegyik város között jelezve van, hogy mennyi az utazási idő (költség).
 {: .prompt-info }
@@ -252,9 +252,9 @@ def dijkstra(n, graph):
 
 ## CSES teszt eredmények
 
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_1.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_1.png){: width="150" height="196"}
 _heapq könyvtár használata nélkül elért futási eredmények_
-![Desktop View](/commons/images/posts/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_2.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024/2024-10-04-algoritmusok-legrovidebb-utvonalak/CSES_result_2.png){: width="150" height="196"}
 _heapq könyvtár használatával elért futási eredmények_
 
 ## Letölthető fájlok

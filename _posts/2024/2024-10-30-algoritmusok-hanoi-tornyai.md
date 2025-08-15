@@ -24,12 +24,12 @@ A Hanoi tornyai probléma egy híres matematikai és algoritmikai feladat, amely
 > Feladatunk megmondani, hogy $n$ darabszámú korong esetén mennyi a minimális korong áthelyezési lépés, illetve, hogy pontosan mi is az adott lépés. (Honnan hová helyezzük az adott korongot.)
 {: .prompt-info }
 
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.gif)
+![Desktop View](/commons/images/posts/2024/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.gif)
 _Hanoi Tornyai szemléltető_
 
 A Hanoi tornyai probléma elsőre egyszerűnek tűnhet, de a korongok számának növekedésével a megoldás komplexitása exponenciálisan növekszik. Ha $n$ a korongok száma, akkor az optimális megoldáshoz szükséges lépések száma: $2^n - 1$.
 
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.png)
+![Desktop View](/commons/images/posts/2024/2024-10-30-algoritmusok-hanoi-tornyai/TowerOfHanoi.png)
 _A Hanoi Tornyai feladat rekurzív algoritmusának működése_
 
 ## Input
@@ -102,7 +102,7 @@ A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt 
 
 ## CSES teszt eredmények
 
-![Desktop View](/commons/images/posts/2024-10-30-algoritmusok-hanoi-tornyai/CSES_result_1.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024/2024-10-30-algoritmusok-hanoi-tornyai/CSES_result_1.png){: width="150" height="196"}
 _futási eredmények_
 
 ## Letölthető fájlok

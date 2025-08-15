@@ -17,7 +17,7 @@ A csúszóablakos keresés egy hatékony algoritmus, amely különösen alkalmas
 > Egy zenei lejátszási listán vannak dalok, amelyeket egymás után játszanak le. A cél, hogy megtaláljuk a leghosszabb, ismétlődés nélküli részlistát a dalok sorrendjében.
 {: .prompt-info }
 
-![Desktop View](/commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses.png)
+![Desktop View](/commons/images/posts/2024/2024-11-25-algoritmusok-csuszoablakos-kereses/CsuszoablakosKereses.png)
 _A csúszóablakos keresési algoritmus működése_
 
 ## Input
@@ -139,7 +139,7 @@ A CSES oldalán bejelentkezést követően lehetőség van az algoritmusra írt 
 
 ## CSES teszt eredmények
 
-![Desktop View](/commons/images/posts/2024-11-25-algoritmusok-csuszoablakos-kereses/CSES_result_1.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024/2024-11-25-algoritmusok-csuszoablakos-kereses/CSES_result_1.png){: width="150" height="196"}
 _futási eredmények_
 
 ## Letölthető fájlok

@@ -18,7 +18,7 @@ A leghosszabb növekvő szekvencia megtalálására szolgáló algoritmus egy ha
 {: .prompt-info }
 
 
-![Desktop View](/commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS.png)
+![Desktop View](/commons/images/posts/2024/2024-10-29-algoritmusok-novekvo-szekvencia/LengthOfLIS.png)
 _Növekvő szekvencia algoritmus működése_
 
 ## Input
@@ -171,9 +171,9 @@ def LengthOfLIS(arr):
 
 ## CSES teszt eredmények
 
-![Desktop View](/commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/CSES_result_1.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024/2024-10-29-algoritmusok-novekvo-szekvencia/CSES_result_1.png){: width="150" height="196"}
 _bisect könyvtár használata nélkül elért futási eredmények_
-![Desktop View](/commons/images/posts/2024-10-29-algoritmusok-novekvo-szekvencia/CSES_result_2.png){: width="150" height="196"}
+![Desktop View](/commons/images/posts/2024/2024-10-29-algoritmusok-novekvo-szekvencia/CSES_result_2.png){: width="150" height="196"}
 _bisect könyvtár használatával elért futási eredmények_
 
 ## Letölthető fájlok
